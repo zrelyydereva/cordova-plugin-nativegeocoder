@@ -75,6 +75,12 @@ public class NativeGeocoder extends CordovaPlugin {
                 resultObj.put("subLocality", address.getSubLocality());
                 resultObj.put("thoroughfare", address.getThoroughfare());
                 resultObj.put("subThoroughfare", address.getSubThoroughfare());
+                // patch - and i need formatted_address;
+                String addrLines = "";
+                for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                    addrLines+=address.getAddressLine(i);
+                }
+                resultObj.put("formatted_address",addrLines);
 
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, resultObj));
             } else {
